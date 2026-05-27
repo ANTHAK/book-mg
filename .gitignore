@@ -1,0 +1,19 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+build/
+coverage/
+
+# local environment
+.env
+.env.*
+!.env.example
+
+# local tooling artifacts
+.playwright-cli/
+.git-backups/
+.git.backup-before-root-repo/
+.DS_Store
+*.log
