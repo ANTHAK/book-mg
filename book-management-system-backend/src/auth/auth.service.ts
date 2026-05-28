@@ -23,6 +23,7 @@ export class AuthService {
    * Supabase 负责创建用户、密码加密和邮箱确认流程。
    */
   async register(registerDto: RegisterDto) {
+    // 通过 Supabase Auth 创建用户，后端不接触密码加密细节。
     const response = await this.supabaseService.signUp(
       registerDto.email,
       registerDto.password,
@@ -42,6 +43,7 @@ export class AuthService {
    * 成功后返回 Supabase session，里面包含 access_token、refresh_token 等信息。
    */
   async login(loginDto: LoginDto) {
+    // 使用 Supabase Auth 校验邮箱密码并获取 session。
     const response = await this.supabaseService.signInWithPassword(
       loginDto.email,
       loginDto.password,

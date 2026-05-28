@@ -6,6 +6,11 @@ type TopbarProps = {
   onCreateBook: () => void;
 };
 
+/**
+ * 工作台顶部栏。
+ *
+ * 展示当前用户，并提供新增图书入口。
+ */
 export function Topbar({ user, onCreateBook }: TopbarProps) {
   return (
     <header className="topbar">

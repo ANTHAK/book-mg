@@ -4,6 +4,7 @@ import { AuthResponse } from '@supabase/supabase-js';
 import { SupabaseService } from '../supabase/supabase.service';
 import { AuthService } from './auth.service';
 
+// SupabaseService mock：只暴露 AuthService 依赖的两个认证方法。
 const supabaseServiceMock = {
   signUp: jest.fn(),
   signInWithPassword: jest.fn(),
@@ -23,6 +24,7 @@ describe('AuthService', () => {
   let service: AuthService;
 
   beforeEach(async () => {
+    // 通过 Nest 测试模块注入 mock，保持和真实依赖注入方式一致。
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AuthService,
@@ -35,6 +37,7 @@ describe('AuthService', () => {
   });
 
   it('registers a user with Supabase', async () => {
+    // 注册成功时应返回 Supabase user 和 session。
     supabaseServiceMock.signUp.mockResolvedValue(authResponse());
 
     const result = await service.register({
@@ -51,6 +54,7 @@ describe('AuthService', () => {
   });
 
   it('throws BadRequestException when registration fails', async () => {
+    // 注册失败统一映射成 400，适合前端展示表单错误。
     supabaseServiceMock.signUp.mockResolvedValue(
       authResponse({
         message: 'User already registered',
@@ -66,6 +70,7 @@ describe('AuthService', () => {
   });
 
   it('logs in a user with Supabase', async () => {
+    // 登录成功时应调用 Supabase 密码登录接口。
     supabaseServiceMock.signInWithPassword.mockResolvedValue(authResponse());
 
     const result = await service.login({
@@ -82,6 +87,7 @@ describe('AuthService', () => {
   });
 
   it('throws UnauthorizedException when login fails', async () => {
+    // 登录失败统一映射成 401。
     supabaseServiceMock.signInWithPassword.mockResolvedValue(
       authResponse({
         message: 'Invalid login credentials',

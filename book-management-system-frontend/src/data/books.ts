@@ -1,5 +1,10 @@
 import type { Book, BookDraft, BookStatus } from '../types/book';
 
+/**
+ * 早期本地演示数据。
+ *
+ * 当前列表已改为接口加载，这份数据保留作开发参考或离线 fallback 扩展。
+ */
 export const initialBooks: Book[] = [
   {
     id: 1,
@@ -41,6 +46,9 @@ export const initialBooks: Book[] = [
   },
 ];
 
+/**
+ * 新增图书表单的默认空值。
+ */
 export const emptyBook: BookDraft = {
   title: '',
   author: '',
@@ -52,6 +60,9 @@ export const emptyBook: BookDraft = {
   dueDate: '',
 };
 
+/**
+ * 图书状态中文文案。
+ */
 export const statusLabel: Record<BookStatus, string> = {
   available: '可借阅',
   borrowed: '已借出',

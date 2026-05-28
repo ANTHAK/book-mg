@@ -4,6 +4,11 @@ type SidebarProps = {
   onLogout: () => void;
 };
 
+/**
+ * 左侧导航栏。
+ *
+ * 当前项目只有图书管理和统计锚点，退出按钮由父组件处理状态清理。
+ */
 export function Sidebar({ onLogout }: SidebarProps) {
   return (
     <aside className="sidebar" aria-label="主导航">

@@ -34,6 +34,7 @@ export class AuthController {
   @ApiCreatedResponse({ description: 'User registered successfully.' })
   @ApiBadRequestResponse({ description: 'Registration failed.' })
   register(@Body() registerDto: RegisterDto) {
+    // Controller 不直接操作 Supabase，只把校验后的 DTO 交给服务层。
     return this.authService.register(registerDto);
   }
 
@@ -49,6 +50,7 @@ export class AuthController {
   @ApiOkResponse({ description: 'User logged in successfully.' })
   @ApiUnauthorizedResponse({ description: 'Invalid credentials.' })
   login(@Body() loginDto: LoginDto) {
+    // 登录失败的 Supabase 错误会在 AuthService 中映射为 401。
     return this.authService.login(loginDto);
   }
 }

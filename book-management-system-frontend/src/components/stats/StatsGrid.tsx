@@ -4,6 +4,11 @@ type StatsGridProps = {
   stats: BookStats;
 };
 
+/**
+ * 馆藏统计卡片。
+ *
+ * 只接收计算好的统计值，避免组件内部耦合图书列表结构。
+ */
 export function StatsGrid({ stats }: StatsGridProps) {
   return (
     <section className="stats-grid" id="stats" aria-label="馆藏统计">

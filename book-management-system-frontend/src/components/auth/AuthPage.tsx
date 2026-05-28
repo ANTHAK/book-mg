@@ -20,6 +20,11 @@ type AuthPageProps = {
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
 };
 
+/**
+ * 登录/注册页面。
+ *
+ * 左侧展示产品信息，右侧根据 authMode 渲染登录或注册表单。
+ */
 export function AuthPage({
   authMode,
   email,

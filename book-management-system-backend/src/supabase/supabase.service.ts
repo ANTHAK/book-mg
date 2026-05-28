@@ -1,6 +1,6 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { AuthResponse, createClient } from '@supabase/supabase-js';
+import { AuthResponse, createClient, SupabaseClient } from '@supabase/supabase-js';
 
 /**
  * Supabase 客户端封装。
@@ -10,7 +10,7 @@ import { AuthResponse, createClient } from '@supabase/supabase-js';
  */
 @Injectable()
 export class SupabaseService {
-  private readonly client: ReturnType<typeof createClient>;
+  private readonly client: SupabaseClient;
 
   constructor(private readonly configService: ConfigService) {
     const supabaseUrl =
@@ -47,5 +47,12 @@ export class SupabaseService {
    */
   signInWithPassword(email: string, password: string): Promise<AuthResponse> {
     return this.client.auth.signInWithPassword({ email, password });
+  }
+
+  /**
+   * 暴露 Supabase 客户端给业务模块访问数据库。
+   */
+  getClient(): SupabaseClient {
+    return this.client;
   }
 }

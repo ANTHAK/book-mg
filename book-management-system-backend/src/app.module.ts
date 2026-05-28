@@ -3,8 +3,14 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
+import { BooksModule } from './books/books.module';
 import { SupabaseModule } from './supabase/supabase.module';
 
+/**
+ * 根模块。
+ *
+ * 汇总全局配置、基础设施模块和业务模块。
+ */
 @Module({
   imports: [
     // 全局配置模块：自动读取 .env，并让业务模块通过 ConfigService 获取配置。
@@ -13,6 +19,8 @@ import { SupabaseModule } from './supabase/supabase.module';
     SupabaseModule,
     // AuthModule 提供用户注册和登录接口。
     AuthModule,
+    // BooksModule 提供图书列表、新增、修改、删除和详情接口。
+    BooksModule,
   ],
   controllers: [AppController],
   providers: [AppService],

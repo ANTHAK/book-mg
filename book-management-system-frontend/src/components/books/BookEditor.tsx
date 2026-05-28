@@ -8,14 +8,21 @@ type BookEditorProps = {
   onDraftBookChange: (draftBook: BookDraft) => void;
   onCreateBook: () => void;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  isSaving?: boolean;
 };
 
+/**
+ * 图书编辑表单。
+ *
+ * editingBook 有值时表示编辑模式，否则为新增模式。
+ */
 export function BookEditor({
   editingBook,
   draftBook,
   onDraftBookChange,
   onCreateBook,
   onSubmit,
+  isSaving = false,
 }: BookEditorProps) {
   return (
     <form className="editor-panel" onSubmit={onSubmit}>
@@ -121,9 +128,9 @@ export function BookEditor({
           </label>
         </div>
       )}
-      <button className="primary-button" type="submit">
+      <button className="primary-button" type="submit" disabled={isSaving}>
         <Plus size={18} aria-hidden="true" />
-        {editingBook ? '保存修改' : '添加图书'}
+        {isSaving ? '保存中' : editingBook ? '保存修改' : '添加图书'}
       </button>
     </form>
   );

@@ -3,6 +3,11 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
+/**
+ * 应用启动入口。
+ *
+ * 负责创建 Nest 应用、配置跨域、全局校验、Swagger 文档以及监听地址。
+ */
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
@@ -34,6 +39,9 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
 
-  await app.listen(process.env.PORT ?? 3000);
+  // 默认监听本机地址，避免部分本地环境限制 0.0.0.0 绑定。
+  const port = process.env.PORT ?? 3000;
+  const host = process.env.HOST ?? '127.0.0.1';
+  await app.listen(port, host);
 }
 void bootstrap();
